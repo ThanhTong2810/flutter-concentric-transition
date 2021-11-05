@@ -57,6 +57,8 @@ class ConcentricPageView extends StatefulWidget {
 class _ConcentricPageViewState extends State<ConcentricPageView> {
   PageController? _pageController;
 
+  bool isChangePage = false;
+
   double _progress = 0;
   int _prevPage = 0;
   Color? _prevColor;
@@ -164,16 +166,22 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
 
   Widget _buildButton() {
     return RawMaterialButton(
-      onPressed: () {
+      onPressed: () async{
         if (_pageController!.page == widget.colors.length - 1) {
           if (widget.onFinish != null) {
             widget.onFinish!();
           }
         } else {
-          _pageController!.nextPage(
+          setState((){
+            isChangePage = true;
+          });
+          await _pageController!.nextPage(
             duration: widget.duration,
             curve: widget.curve,
           );
+          setState((){
+            isChangePage = false;
+          });
         }
       },
       constraints: BoxConstraints(
@@ -181,7 +189,13 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
         minHeight: widget.radius * 2,
       ),
       shape: CircleBorder(),
-      child: widget.buttonChild ?? SizedBox(),
+      child: AnimatedOpacity(
+        // If the widget is visible, animate to 0.0 (invisible).
+        // If the widget is hidden, animate to 1.0 (fully visible).
+          opacity: isChangePage ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 500),
+          // The green box must be a child of the AnimatedOpacity widget.
+          child: widget.buttonChild ?? SizedBox(),
     );
   }
 
