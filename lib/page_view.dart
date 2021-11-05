@@ -195,7 +195,7 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
       child: AnimatedOpacity(
         // If the widget is visible, animate to 0.0 (invisible).
         // If the widget is hidden, animate to 1.0 (fully visible).
-        opacity: isChangePage ? 1.0 : 0.0,
+        opacity: isChangePage ? 0.0 : 1.0,
         duration: const Duration(milliseconds: 500),
         // The green box must be a child of the AnimatedOpacity widget.
         child: widget.buttonChild ?? SizedBox(),
