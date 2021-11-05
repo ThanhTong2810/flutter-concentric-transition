@@ -26,28 +26,29 @@ class ConcentricPageView extends StatefulWidget {
   final Curve curve;
   final Widget? buttonChild;
 
-  const ConcentricPageView({
-    Key? key,
-    required this.itemBuilder,
-    required this.colors,
-    this.onChange,
-    this.onFinish,
-    this.itemCount,
-    this.pageController,
-    this.pageSnapping = true,
-    this.reverse = false,
-    this.notifier,
-    this.scaleFactor = 0.3,
-    this.opacityFactor = 0.0,
-    this.radius = 40.0,
-    this.verticalPosition = 0.75,
-    this.direction = Axis.horizontal,
+  const ConcentricPageView(
+      {Key? key,
+      required this.itemBuilder,
+      required this.colors,
+      this.onChange,
+      this.onFinish,
+      this.itemCount,
+      this.pageController,
+      this.pageSnapping = true,
+      this.reverse = false,
+      this.notifier,
+      this.scaleFactor = 0.3,
+      this.opacityFactor = 0.0,
+      this.radius = 40.0,
+      this.verticalPosition = 0.75,
+      this.direction = Axis.horizontal,
 //    this.physics = const NeverScrollableScrollPhysics(),
-    this.physics,
-    this.duration = const Duration(milliseconds: 1500),
-    this.curve = Curves.easeOutSine,
-    this.buttonChild// Cubic(0.7, 0.5, 0.5, 0.1),
-  })  : assert(colors.length >= 2),
+      this.physics,
+      this.duration = const Duration(milliseconds: 1500),
+      this.curve = Curves.easeOutSine,
+      this.buttonChild // Cubic(0.7, 0.5, 0.5, 0.1),
+      })
+      : assert(colors.length >= 2),
         super(key: key);
 
   @override
@@ -166,20 +167,20 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
 
   Widget _buildButton() {
     return RawMaterialButton(
-      onPressed: () async{
+      onPressed: () async {
         if (_pageController!.page == widget.colors.length - 1) {
           if (widget.onFinish != null) {
             widget.onFinish!();
           }
         } else {
-          setState((){
+          setState(() {
             isChangePage = true;
           });
           await _pageController!.nextPage(
             duration: widget.duration,
             curve: widget.curve,
           );
-          setState((){
+          setState(() {
             isChangePage = false;
           });
         }
@@ -192,10 +193,11 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
       child: AnimatedOpacity(
         // If the widget is visible, animate to 0.0 (invisible).
         // If the widget is hidden, animate to 1.0 (fully visible).
-          opacity: isChangePage ? 1.0 : 0.0,
-          duration: const Duration(milliseconds: 500),
-          // The green box must be a child of the AnimatedOpacity widget.
-          child: widget.buttonChild ?? SizedBox(),
+        opacity: isChangePage ? 1.0 : 0.0,
+        duration: const Duration(milliseconds: 500),
+        // The green box must be a child of the AnimatedOpacity widget.
+        child: widget.buttonChild ?? SizedBox(),
+      ),
     );
   }
 
