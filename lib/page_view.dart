@@ -67,6 +67,9 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
 
   @override
   void initState() {
+    setState(() {
+      isChangePage = false;
+    });
     _prevColor = widget.colors[_prevPage];
     _nextColor = widget.colors[_prevPage + 1];
     _pageController = widget.pageController != null
