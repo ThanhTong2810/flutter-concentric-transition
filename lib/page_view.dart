@@ -24,6 +24,7 @@ class ConcentricPageView extends StatefulWidget {
   final ScrollPhysics? physics;
   final Duration duration;
   final Curve curve;
+  final Widget? buttonChild;
 
   const ConcentricPageView({
     Key? key,
@@ -44,7 +45,8 @@ class ConcentricPageView extends StatefulWidget {
 //    this.physics = const NeverScrollableScrollPhysics(),
     this.physics,
     this.duration = const Duration(milliseconds: 1500),
-    this.curve = Curves.easeOutSine, // Cubic(0.7, 0.5, 0.5, 0.1),
+    this.curve = Curves.easeOutSine,
+    this.buttonChild// Cubic(0.7, 0.5, 0.5, 0.1),
   })  : assert(colors.length >= 2),
         super(key: key);
 
@@ -179,6 +181,7 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
         minHeight: widget.radius * 2,
       ),
       shape: CircleBorder(),
+      child: widget.buttonChild ?? SizedBox(),
     );
   }
 
