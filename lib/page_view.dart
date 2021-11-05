@@ -180,8 +180,10 @@ class _ConcentricPageViewState extends State<ConcentricPageView> {
             duration: widget.duration,
             curve: widget.curve,
           );
-          setState(() {
-            isChangePage = false;
+          Future.delayed(Duration(seconds: 1),(){
+            setState(() {
+              isChangePage = false;
+            });
           });
         }
       },
